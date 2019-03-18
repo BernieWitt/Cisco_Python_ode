@@ -1,6 +1,6 @@
 #__Program Function      : Connect to device, get interface information, print errors to file
 #__Date                  : 19-02-2019
-#__Author                : Jonatan Lauenstein
+#__Author                : Jonatan (Jonatan_lauenstein@msn.com for questions)
 
 import paramiko
 import datetime
