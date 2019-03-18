@@ -6,18 +6,18 @@ import paramiko
 import datetime
 import csv
 import time
-import getpass 
+import getpass
 import sys, os
 NETWORK_DEVICES = [""]
 
 
 ########################################################################################################################################################
-#FUNCTIONS DESCRIPTIONS:                                                                                                                               #  
+#FUNCTIONS DESCRIPTIONS:                                                                                                                               #
 #get_username_and_password:             Promts user for username and password and saves it                                                             #
 #get_hostname:                          Connects to device and returns a string of the hostname                                                        #
 #get_correct_interface_name_and_type:   Connects to device and get all interfaces with T P I enabled                                                   #
 #get_interface_ap_info:                 Connects to device and gets a long string of interface information, does some string manipulation              #                                                          #
-#get_time:                              Checks the local time and date, strips the date                                                                #    
+#get_time:                              Checks the local time and date, strips the date                                                                #
 #deploy_to_file:                        Stores correct information in a .csv file                                                                      #
 #connect_to_device:                     Establishes a connection to a device                                                                           #
 #                                                                                                                                                      #
@@ -42,13 +42,13 @@ def main():
         username_and_password = get_username_and_password(ip_of_device)
         device_name = get_hostname(ip_of_device, username_and_password)
         print("Connecting to device:", device_name)
-        
+
         interfaces_dict = get_correct_interface_name_and_type(ip_of_device, username_and_password)
 
         information_from_device = get_interface_ap_info(interfaces_dict, ip_of_device, username_and_password)
 
         date = get_time()
-        
+
         errors_found = deploy_to_file(information_from_device, date, device_name)
 
     input("Press any key to exit")
@@ -61,7 +61,7 @@ def get_username_and_password(ip_of_device):
     input_username = input("Username: ")
     try:
         input_password = getpass.getpass()
-    
+
     except Exception as error:
         print(error)
         input("")
@@ -106,16 +106,16 @@ def get_correct_interface_name_and_type(ip_of_device, username_and_password):
                 dict_interfacetype_interfacenumber.update({lists[1]:lists[0]})
             else:
                 dict_interfacetype_interfacenumber.update({lists[2]:lists[1]})
-            
+
     except Exception as error:
         print(error)
         input("")
-    return dict_interfacetype_interfacenumber 
+    return dict_interfacetype_interfacenumber
 
 ####################################################################################################################
 ####################################################################################################################
 
-def connect_to_device(ip_of_device, username_and_password):    
+def connect_to_device(ip_of_device, username_and_password):
     input_username = username_and_password[0]
     input_password = username_and_password[1]
     try:
@@ -160,10 +160,10 @@ def get_interface_ap_info(interfaces_dict, ip_of_device, username_and_password):
                 data_from_device = data_from_device_wrong
             else:
                 data_from_device = data_from_device_wrong
-            
+
             #This is defently not the best option, will look into a change later on.
             list_changed = [data_from_device[17],data_from_device[20],data_from_device[23],data_from_device[24]]
-        
+
             final_list = []
             for new_items in list_changed:
                 list_split = new_items.split(", ")
@@ -173,10 +173,10 @@ def get_interface_ap_info(interfaces_dict, ip_of_device, username_and_password):
                 new_list = final_items.split()
                 dic_names = (new_list[1],new_list[2])
                 interface_info_dict[" ".join(dic_names)] = new_list[0]
-            
+
             final_dict_interface_and_info[interfaces] = interface_info_dict
     except Exception as error:
-        print(error)       
+        print(error)
     return final_dict_interface_and_info
 
 ####################################################################################################################
@@ -218,5 +218,6 @@ def deploy_to_file(get_interface_ap_info, current_date, device_name):
         input("")
 
 ####################################################################################################################
-####################################################################################################################        
-main()
+####################################################################################################################
+if __name__ == "__main__":
+    main()
