@@ -1,4 +1,4 @@
-# Cisco_Python_ode
+# Cisco_Python_code
 This python program takes a list of ip addresses, connects to devices, logs in to the devices then it checks using the CDP (Cisco discovery protocol) and shows the T B I Neighbors (T - Trans-Bridge, B - Source-Route-Bridge, I - IGMP) Takes the interfaces that are in T B I, gets interface packet input, packet output and interface errors. Then it creates a .csv file and prints all the information into that file in a good looking way. The file can then be opened with Excel, and you are quickly get an overview over what interfaces handles a lot of packets and if there are any errors
 
 This program was initially made because some Cisco Catalyst switches were acting up, and we couldnt find a reason to why it was happening, to get an overview of how extensive the problem was this program would scan the network and send back all interfaces of the devices with the error. (If you are experiencing the issue with random interface output errors, its because of a software bug...)
